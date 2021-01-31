@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BlogController!
+{% endblock %}
+
+{% block body %}
+	<h1>Bienvenue sur le site</h1>
+	<section class="articles">
+		<article>
+			<h2>Titre de l'article</h2>
+			<div class="metadata">Ecrit le 10/05/2018 à 19:00 dans la catégorie Politique</div>
+			<div class="content">
+				<img src="http://placehold.it/350x150" alt="img1">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis inventore, adipisci ut atque labore sapiente?</p>
+				<p>Beatae, ullam incidunt! Rerum maxime, sit reprehenderit aliquam voluptatibus excepturi accusamus repellat officia impedit accusantium.</p>
+				<a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a>
+			</div>
+		</article>
+		<article>
+			<h2>Titre de l'article</h2>
+			<div class="metadata">Ecrit le 10/05/2018 à 19:00 dans la catégorie Politique</div>
+			<div class="content">
+				<img src="http://placehold.it/350x150" alt="img1">
+				<p>Quis aliquid doloribus iure ex cum explicabo vel, minima praesentium unde molestias exercitationem maxime est!</p>
+				<p>Eos magni consequuntur optio ullam illum repellendus facilis, officiis perspiciatis mollitia velit soluta saepe adipisci?</p>
+				<a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a>
+			</div>
+		</article>
+		<article>
+			<h2>Titre de l'article</h2>
+			<div class="metadata">Ecrit le 10/05/2018 à 19:00 dans la catégorie Politique</div>
+			<div class="content">
+				<img src="http://placehold.it/350x150" alt="img1">
+				<p>Dolorum tenetur accusamus laboriosam, temporibus asperiores debitis officia quidem magnam fuga dignissimos illum ipsum doloribus!</p>
+				<p>Aliquam, nesciunt? Sint nisi aspernatur nesciunt eligendi. Iusto, possimus ea neque odit ut esse repellendus.</p>
+				<a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a>
+			</div>
+		</article>
+	</section>
+{% endblock %}
