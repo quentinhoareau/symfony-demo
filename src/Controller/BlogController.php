@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ArticleRepository;
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -76,11 +78,27 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/{id}", name="blog_show")
      */
-    public function show(ArticleRepository $repo, $id): Response
+    public function show(Article $article, Request $request, EntityManagerInterface $manager): Response
     {
-        $article = $repo->find($id);
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userOnline = $this->get('security.token_storage')->getToken()->getUser();
+
+            $comment->setArticle($article);
+            $comment->setUser($userOnline);
+            $comment->setCreatedAt(new \DateTime());
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute("blog_show", ['id' => $article->getId()]);
+        }
+
         return $this->render('blog/show.html.twig', [
-            'article' => $article
+            'article' => $article,
+            'commentForm' => $form->createView()
         ]);
     }
 }

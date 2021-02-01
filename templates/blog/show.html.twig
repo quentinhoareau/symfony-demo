@@ -15,7 +15,7 @@
 			dans la catégorie
 			{{ article.category.title }}</div>
 		<div class="content">
-			<img src="{{ article.image }}" alt="img1">
+			<img src="https://loremflickr.com/640/360" alt="img1">
 			<p>
 				{{ article.content | raw }}
 			</p>
@@ -24,10 +24,14 @@
 	</article>
 
 	<section id="comments">
+		<h2>
+			{{ article.comments | length }}
+			Commentaires
+		</h2>
 		{% for comment in article.comments %}
 			<div class="comment">
 				<div class="row">
-					<div class="col-3">{{comment.author}}
+					<div class="col-3">{{comment.user.username}}
 						<small>{{comment.createdAt | date('d/m/Y à H:i') }}</small>
 					</div>
 					<div class="col">
@@ -38,5 +42,12 @@
 
 		{% endfor %}
 
+		{% if app.user %}
+			{{ form_start(commentForm) }}
+			{{ form_row(commentForm.content, {'attr' : { 'placeholder' : 'Votre commentaire' }}) }}
+
+			<button type="submit" class="btn btn-primary">Commenter</button>
+			{{ form_end(commentForm) }}
+		{% endif %}
 	</section>
 {% endblock %}

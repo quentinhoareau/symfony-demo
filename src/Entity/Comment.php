@@ -21,12 +21,6 @@ class Comment
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=255, nullable=false)
-     */
-    private $author;
 
     /**
      * @var string
@@ -52,22 +46,22 @@ class Comment
      */
     private $article;
 
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getContent(): ?string
     {
@@ -101,6 +95,18 @@ class Comment
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
